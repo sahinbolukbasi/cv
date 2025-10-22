@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şahin Bölükbaşı - CV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 60px 80px;
+            border-radius: 2px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #000;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cv-button {
+            padding: 18px 45px;
+            font-size: 18px;
+            font-weight: 600;
+            border: 2px solid #000;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #000;
+        }
+
+        .cv-button:hover {
+            background: #000;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .cv-button:active {
+            transform: translateY(0);
+        }
+
+        .btn-turkish:hover {
+            background: #000;
+        }
+
+        .btn-english:hover {
+            background: #000;
+        }
+
+        .flag {
+            font-size: 24px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer a {
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .footer a:hover {
+            border-bottom-color: #000;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .cv-button {
+                padding: 15px 35px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Şahin Bölükbaşı</h1>
+        <p class="subtitle">DevOps Specialist & Software Developer</p>
+        
+        <div class="button-group">
+            <a href="viewer.html?cv=tr" class="cv-button btn-turkish">
+                <span class="flag">🇹🇷</span>
+                <span>Türkçe CV</span>
+            </a>
+            <a href="viewer.html?cv=en" class="cv-button btn-english">
+                <span class="flag">🇬🇧</span>
+                <span>English CV</span>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>📧 sahinbolukbas@gmail.com</p>
+            <p>🔗 <a href="https://linkedin.com/in/sahinbolukbasi" target="_blank">LinkedIn</a> | 
+               <a href="https://github.com/sahinbolukbasi" target="_blank">GitHub</a></p>
+        </div>
+    </div>
+</body>
+</html>

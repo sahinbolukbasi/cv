@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahin Bolukbasi - DevOps Specialist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.5;
+            color: #2c3e50;
+            background: #ffffff;
+        }
+
+        .container {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            background: white;
+            display: flex;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 35%;
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 20px 18px;
+        }
+
+        .main-content {
+            width: 65%;
+            padding: 20px 25px;
+            background: #ffffff;
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #333;
+        }
+
+        .name {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .title {
+            font-size: 10px;
+            color: #b0b0b0;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid #444;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .main-content .section-title {
+            color: #1a1a1a;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .contact-item {
+            margin-bottom: 5px;
+            font-size: 8.5px;
+            display: flex;
+            align-items: flex-start;
+            word-break: break-word;
+        }
+
+        .contact-icon {
+            margin-right: 6px;
+            font-weight: bold;
+            min-width: 15px;
+        }
+
+        .info-item {
+            margin-bottom: 5px;
+            font-size: 8.5px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #b0b0b0;
+            display: block;
+            margin-bottom: 1px;
+        }
+
+        .skills-section {
+            margin-bottom: 12px;
+        }
+
+        .skill-category {
+            margin-bottom: 8px;
+        }
+
+        .skill-category-title {
+            font-size: 9.5px;
+            font-weight: 600;
+            color: #b0b0b0;
+            margin-bottom: 4px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3px;
+        }
+
+        .skill-tag {
+            background: #2c2c2c;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-size: 7.5px;
+            border: 1px solid #444;
+        }
+
+        .experience-item {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 15px;
+            border-left: 2px solid #e0e0e0;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 3px;
+            width: 8px;
+            height: 8px;
+            background: #1a1a1a;
+            border-radius: 50%;
+        }
+
+        .job-header {
+            margin-bottom: 3px;
+        }
+
+        .job-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1px;
+        }
+
+        .company-name {
+            font-size: 10px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 1px;
+        }
+
+        .job-period {
+            font-size: 8.5px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .job-description {
+            font-size: 8.5px;
+            color: #444;
+            margin-top: 3px;
+            text-align: justify;
+            line-height: 1.4;
+        }
+
+        .job-description ul {
+            margin-left: 10px;
+            margin-top: 3px;
+        }
+
+        .job-description li {
+            margin-bottom: 2px;
+        }
+
+        .highlight-box {
+            background: #f8f8f8;
+            border-left: 2px solid #1a1a1a;
+            padding: 5px 8px;
+            margin-top: 3px;
+            font-size: 8.5px;
+        }
+
+        .highlight-title {
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: #1a1a1a;
+        }
+
+        .education-item {
+            margin-bottom: 10px;
+        }
+
+        .degree {
+            font-size: 10px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1px;
+        }
+
+        .school {
+            font-size: 8.5px;
+            color: #666;
+            margin-bottom: 1px;
+        }
+
+        .education-period {
+            font-size: 8px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .languages-section {
+            margin-top: 12px;
+        }
+
+        .language-item {
+            margin-bottom: 4px;
+            font-size: 8.5px;
+        }
+
+        .language-name {
+            font-weight: 600;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+            .container {
+                width: 210mm !important;
+                height: 297mm !important;
+                box-shadow: none;
+                margin: 0;
+                overflow: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="profile-section">
+                <h1 class="name">SAHIN<br>BOLUKBASI</h1>
+                <p class="title">DevOps Specialist</p>
+            </div>
+
+            <!-- Contact Information -->
+            <div style="margin-bottom: 12px;">
+                <h2 class="section-title">CONTACT</h2>
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <span>sahinbolukbas@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📱</span>
+                    <span>+90 (534) 898 70 73</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🔗</span>
+                    <span>linkedin.com/in/sahinbolukbasi</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">⚙️</span>
+                    <span>github.com/sahinbolukbasi</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span>Zeytinburnu / Istanbul, Turkey</span>
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div style="margin-bottom: 12px;">
+                <h2 class="section-title">PERSONAL INFO</h2>
+                <div class="info-item">
+                    <span class="info-label">Date of Birth</span>
+                    27/10/1999
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Marital Status</span>
+                    Single
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Military Service</span>
+                    Deferred (Dec 2027)
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Driver's License</span>
+                    Class B
+                </div>
+            </div>
+
+            <!-- Technical Skills -->
+            <div class="skills-section">
+                <h2 class="section-title">TECHNICAL SKILLS</h2>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">DevOps & Cloud Infrastructure</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Azure DevOps</span>
+                        <span class="skill-tag">Microsoft Azure</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">YAML Pipelines</span>
+                        <span class="skill-tag">PowerShell</span>
+                        <span class="skill-tag">CI/CD Automation</span>
+                        <span class="skill-tag">Infrastructure as Code</span>
+                        <span class="skill-tag">Release Management</span>
+                        <span class="skill-tag">Azure Monitor</span>
+                        <span class="skill-tag">Git / GitFlow</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">.NET & Backend Development</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">.NET Core</span>
+                        <span class="skill-tag">ASP.NET MVC</span>
+                        <span class="skill-tag">Web API</span>
+                        <span class="skill-tag">Entity Framework</span>
+                        <span class="skill-tag">Swagger</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Automation & Scripting</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PowerShell</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Power Automate</span>
+                        <span class="skill-tag">Selenium</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Database</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MSSQL / T-SQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">IBM Informix</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Software Engineering</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">SOLID</span>
+                        <span class="skill-tag">Design Patterns</span>
+                        <span class="skill-tag">OOP / DDD</span>
+                        <span class="skill-tag">Agile / Scrum</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="languages-section">
+                <h2 class="section-title">LANGUAGES</h2>
+                <div class="language-item">
+                    <span class="language-name">Turkish:</span> Native
+                </div>
+                <div class="language-item">
+                    <span class="language-name">English:</span> Intermediate
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Professional Profile -->
+            <div style="margin-bottom: 12px;">
+                <h2 class="section-title">PROFESSIONAL PROFILE</h2>
+                <p style="font-size: 8.5px; text-align: justify; color: #444; line-height: 1.4;">
+                    DevOps specialist and software development professional with expertise in cloud infrastructure management, CI/CD pipelines, 
+                    containerization, and microservices architectures. Experienced in developing full-stack projects using the .NET ecosystem, 
+                    Azure cloud services, and modern software development practices. Focused on delivering scalable and sustainable solutions 
+                    through Agile methodologies.
+                </p>
+            </div>
+
+            <!-- Work Experience -->
+            <div style="margin-bottom: 12px;">
+                <h2 class="section-title">WORK EXPERIENCE</h2>
+
+                <!-- Current Position - DevOps -->
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div class="job-title">DevOps Specialist</div>
+                        <div class="company-name">Pargesoft</div>
+                        <div class="job-period">March 2025 - Present</div>
+                    </div>
+                    <div class="job-description">
+                        <p>Transitioned to <strong>DevOps Specialist</strong> role in March 2025, responsible for automation and continuous improvement of software development, versioning, and deployment processes. Collaborated with development teams to standardize CI/CD infrastructure, implement secure deployment processes, and manage monitoring systems at enterprise scale.</p>
+
+                        <div class="highlight-box">
+                            <div class="highlight-title">🔧 Key Responsibilities and Processes:</div>
+                            <ul style="margin-left: 10px; margin-top: 2px;">
+                                <li><strong>CI/CD Pipeline Management:</strong> Designed and managed automated build, test, and deployment pipelines on Azure DevOps; ensured speed and reliability in software delivery processes.</li>
+                                <li><strong>Containerization:</strong> Containerized applications using Docker for isolated and portable environments, integrated into CI/CD processes for automated and error-free deployments.</li>
+                                <li><strong>Cloud Infrastructure:</strong> Built and managed scalable infrastructure for web applications and services on Microsoft Azure.</li>
+                                <li><strong>Monitoring & Logging:</strong> Implemented system health, performance, and log management processes using Azure Monitor and Application Insights.</li>
+                                <li><strong>Automation:</strong> Automated repetitive tasks with PowerShell and Python scripts to improve operational efficiency.</li>
+                                <li><strong>Infrastructure as Code (IaC):</strong> Applied IaC principles in infrastructure management to create version-controlled and reproducible environments.</li>
+                                <li><strong>Security & Compliance:</strong> Strengthened deployment security through secure pipelines, access policies, and secret management (Secrets, Key Vault) processes.</li>
+                            </ul>
+                        </div>
+
+                        <div style="margin-top: 3px; font-size: 7.5px; color: #666;">
+                            <strong>Technologies Used:</strong> Azure DevOps, Docker, Microsoft Azure, PowerShell, Python, Git, Azure Repos, Azure Artifacts, Azure Monitor
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Previous Position at Pargesoft -->
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div class="job-title">R&D Software Developer Specialist</div>
+                        <div class="company-name">Pargesoft</div>
+                        <div class="job-period">February 2024 - March 2025</div>
+                    </div>
+                    <div class="job-description">
+                        <p>Played an active role in desktop, web, and API development processes within the .NET ecosystem.</p>
+                        <ul>
+                            <li>Developed desktop applications using Windows Forms and performance-optimized web modules with ASP.NET MVC</li>
+                            <li>Designed and documented RESTful APIs with Swagger, integrated SOAP and other web services</li>
+                            <li>Managed web hosting, database management, and CI/CD pipelines on Azure</li>
+                            <li>Utilized services such as Azure Blob Storage and Azure Functions</li>
+                            <li>Developed mobile applications using MAUI</li>
+                            <li>Successfully managed integration processes with Microsoft Dynamics products (NAV, BC, CRM, AX)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Login Software -->
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div class="job-title">Database Developer Specialist</div>
+                        <div class="company-name">Login Software</div>
+                        <div class="job-period">June 2023 - February 2024</div>
+                    </div>
+                    <div class="job-description">
+                        <p>Worked on database management and software development processes.</p>
+                        <ul>
+                            <li>Database management with IBM Informix, including table creation, triggers, and stored procedures</li>
+                            <li>Developed complex SQL queries for intricate production processes</li>
+                            <li>Contributed to reporting systems for in-house ERP software using C++ and built web applications with C#</li>
+                            <li>Developed Python-based automation tools for ERP support staff to streamline workflows and improve efficiency</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Truva Textile -->
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div class="job-title">Production Planning Manager</div>
+                        <div class="company-name">Truva Tekstil</div>
+                        <div class="job-period">November 2022 - April 2023</div>
+                    </div>
+                    <div class="job-description">
+                        <p>Coordinated with the production team by calculating yarn type, quantity, and waste rates based on order details. Developed two fundamental algorithms to optimize the production process:</p>
+                        <ul>
+                            <li><strong>Yarn Consumption Algorithm:</strong> Automated material planning by accurately calculating the amount of yarn required for each product.</li>
+                            <li><strong>Production Scheduling Algorithm:</strong> Improved production efficiency by optimizing machine capacity and start times. Also planned and managed post-production processes to ensure on-time delivery and full traceability.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div>
+                <h2 class="section-title">EDUCATION</h2>
+                
+                <div class="education-item">
+                    <div class="degree">Bachelor's Degree in Industrial Engineering</div>
+                    <div class="school">Istanbul Gelisim University, School of Business</div>
+                    <div class="education-period">2021 - 2025 (Left in 4th year)</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="degree">Associate Degree in Computer Programming</div>
+                    <div class="school">Istanbul Arel University, School of Business</div>
+                    <div class="education-period">2018 - 2020</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
