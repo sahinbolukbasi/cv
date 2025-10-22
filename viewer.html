@@ -470,16 +470,21 @@
             loadingDiv.querySelector('div:last-child').textContent = 'PDF Oluşturuluyor...';
             
             try {
-                // iframe içeriğini al
-                const iframe = document.getElementById('cvIframe');
+                // CV dosyasını fetch ile al
+                const cvFile = currentLang === 'tr' ? 'cv_tr.html' : 'cv_en.html';
+                const response = await fetch(cvFile);
+                const htmlText = await response.text();
                 
-                // iframe yüklenmiş mi kontrol et
-                if (!iframe || !iframe.contentWindow) {
-                    throw new Error('CV henüz yüklenmedi');
-                }
+                // Geçici div oluştur
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = htmlText;
+                tempDiv.style.position = 'absolute';
+                tempDiv.style.left = '-9999px';
+                tempDiv.style.width = '794px'; // A4 genişliği
+                document.body.appendChild(tempDiv);
                 
-                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                const cvContainer = iframeDoc.querySelector('.container');
+                // Container'ı bul
+                const cvContainer = tempDiv.querySelector('.container');
                 
                 if (!cvContainer) {
                     throw new Error('CV içeriği bulunamadı');
@@ -496,11 +501,16 @@
                     useCORS: true,
                     allowTaint: true,
                     logging: false,
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
+                    width: 794,
+                    height: 1123
                 });
                 
+                // Geçici div'i kaldır
+                document.body.removeChild(tempDiv);
+                
                 // Canvas'ı image'e çevir
-                const imgData = canvas.toDataURL('image/png');
+                const imgData = canvas.toDataURL('image/png', 1.0);
                 
                 // jsPDF kontrolü
                 if (typeof window.jspdf === 'undefined') {
@@ -515,12 +525,12 @@
                     format: 'a4'
                 });
                 
-                // Canvas boyutlarını al
-                const imgWidth = 210; // A4 genişliği mm
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                // A4 boyutları
+                const pdfWidth = 210;
+                const pdfHeight = 297;
                 
                 // Görüntüyü PDF'e ekle
-                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, '', 'FAST');
                 
                 // PDF'i indir
                 pdf.save(fileName);
