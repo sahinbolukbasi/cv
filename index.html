@@ -1,159 +1,937 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Şahin Bölükbaşı - CV</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <title>Şahin Bölükbaşı | DevOps Engineer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Şahin Bölükbaşı — DevOps Engineer. CI/CD, Kubernetes, Azure, AI Systems.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="shortcut icon" href="https://img.icons8.com/ios/50/code--v1.png" type="image/x-icon">
+<style>
+/* ── VARIABLES ── */
+:root { --t: 0.3s ease; }
+[data-theme="dark"] {
+    --bg:#080808;--bg2:#0e0e0e;--card:#111111;--hover:#181818;
+    --b:#1e1e1e;--b2:#333;--txt:#f0f0f0;--txt2:#777;--txt3:#363636;
+    --accent:#fff;--dot:rgba(255,255,255,.025);
+    --icon-f:grayscale(1) brightness(1.9);--icon-fh:grayscale(1) brightness(2.5);
+    --shadow:rgba(0,0,0,.6);
+}
+[data-theme="light"] {
+    --bg:#f8f8f8;--bg2:#f0f0f0;--card:#fff;--hover:#efefef;
+    --b:#e2e2e2;--b2:#aaa;--txt:#0a0a0a;--txt2:#555;--txt3:#c8c8c8;
+    --accent:#000;--dot:rgba(0,0,0,.04);
+    --icon-f:grayscale(1) brightness(.35);--icon-fh:grayscale(1) brightness(.1);
+    --shadow:rgba(0,0,0,.1);
+}
+/* ── RESET ── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{
+    scroll-behavior:smooth;
+}
+body{
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--bg);color:var(--txt);overflow-x:hidden;
+    transition:background var(--t),color var(--t);
+    background-image:radial-gradient(var(--dot) 1px,transparent 1px);
+    background-size:24px 24px;
+}
+a{color:inherit;text-decoration:none}
+strong{color:var(--txt);font-weight:600}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+/* ── PROGRESS ── */
+#progress{
+    position:fixed;top:0;left:0;z-index:300;
+    height:1px;width:0;background:var(--txt2);
+    transition:width .1s linear;
+}
+/* ── NAV ── */
+.nav{
+    position:fixed;top:0;left:0;right:0;z-index:200;height:62px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 52px;background:var(--bg);border-bottom:1px solid var(--b);
+    transition:background var(--t),border-color var(--t),box-shadow var(--t);
+}
+.nav-logo{
+    font-family:'JetBrains Mono',monospace;font-size:13.5px;font-weight:600;
+    color:var(--txt);letter-spacing:.5px;transition:color var(--t);
+}
+.nav-logo em{color:var(--txt3);font-style:normal}
+.nav-mid{display:flex;align-items:center;gap:4px}
+.nl{
+    font-size:12.5px;font-weight:500;color:var(--txt2);padding:5px 13px;
+    border-radius:6px;cursor:pointer;border:1px solid transparent;
+    transition:color var(--t),background var(--t);
+}
+.nl:hover{color:var(--txt);background:var(--hover)}
+.nl.on{color:var(--txt)}
+.nav-r{display:flex;align-items:center;gap:8px}
+.theme-btn{
+    width:36px;height:36px;border:1px solid var(--b);background:var(--bg2);
+    border-radius:7px;display:flex;align-items:center;justify-content:center;
+    font-size:14px;color:var(--txt2);cursor:pointer;transition:all var(--t);
+}
+.theme-btn:hover{border-color:var(--b2);color:var(--txt)}
 
-        .container {
-            text-align: center;
-            background: white;
-            padding: 60px 80px;
-            border-radius: 2px;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
-            border: 1px solid #e0e0e0;
-        }
+/* ── HERO ── */
+.hero{
+    min-height:100vh;display:flex;align-items:center;
+    padding:80px 52px 60px;max-width:1440px;margin:0 auto;
+    position:relative;
+}
+.hero-grid{
+    width:100%;display:grid;
+    grid-template-columns:1fr 520px;
+    gap:80px;align-items:center;
+}
+.hero-left{display:flex;flex-direction:column;gap:20px}
+.hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+    letter-spacing:3px;text-transform:uppercase;color:var(--txt3);
+    border:1px solid var(--b);border-radius:20px;padding:5px 14px;
+    background:var(--card);width:fit-content;transition:all var(--t);
+}
+.bdot{
+    width:6px;height:6px;border-radius:50%;background:var(--txt2);
+    animation:pdot 2.2s ease-in-out infinite;
+}
+@keyframes pdot{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+.hero-name{
+    font-size:clamp(3.4rem,7vw,6.8rem);font-weight:900;
+    letter-spacing:-4px;color:var(--txt);line-height:.95;
+    transition:color var(--t);overflow:hidden;
+}
+.hero-name .ln{
+    display:block;transform:translateY(100%);opacity:0;
+    animation:su .75s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-name .ln:nth-child(2){animation-delay:.13s}
+@keyframes su{to{transform:translateY(0);opacity:1}}
+.hero-sub{
+    font-family:'JetBrains Mono',monospace;font-size:.85rem;
+    color:var(--txt2);letter-spacing:.3px;transition:color var(--t);
+}
+.hero-sub::before{content:'> ';color:var(--txt3)}
+.blink{animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-desc{
+    font-size:.95rem;line-height:1.75;color:var(--txt2);
+    max-width:520px;transition:color var(--t);
+}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.btn{
+    display:inline-flex;align-items:center;gap:7px;padding:10px 22px;
+    font-size:12.5px;font-weight:600;border-radius:8px;cursor:pointer;
+    transition:all var(--t);border:1px solid;letter-spacing:.2px;
+}
+.btn-p{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.btn-p:hover{opacity:.8}
+.btn-o{background:transparent;color:var(--txt);border-color:var(--b)}
+.btn-o:hover{background:var(--hover);border-color:var(--b2)}
+.socials{display:flex;gap:8px;margin-top:6px}
+.soc{
+    width:38px;height:38px;border:1px solid var(--b);border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;color:var(--txt2);background:var(--card);transition:all var(--t);
+}
+.soc:hover{border-color:var(--b2);color:var(--txt);background:var(--hover);transform:translateY(-2px)}
 
-        h1 {
-            font-size: 42px;
-            color: #000;
-            margin-bottom: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
+/* ── HERO RIGHT / PHOTO ── */
+.hero-right{
+    position:relative;display:flex;
+    align-items:center;justify-content:center;
+    padding:40px;
+}
+.photo-area{
+    position:relative;
+    width:320px;height:320px;
+    margin:0 auto;
+}
+/* Rotating rings */
+.p-ring{
+    position:absolute;border-radius:50%;pointer-events:none;
+    border:1px dashed var(--b);transition:border-color var(--t);
+}
+.p-ring-1{inset:-12px;animation:rot 18s linear infinite}
+.p-ring-2{inset:-28px;opacity:.4;animation:rot 32s linear infinite reverse}
+@keyframes rot{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 
-        .subtitle {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
+/* Corner brackets */
+.p-cor{
+    position:absolute;width:18px;height:18px;z-index:4;
+    pointer-events:none;transition:border-color var(--t);
+}
+.p-cor.tl{top:0;left:0;border-top:2px solid var(--b2);border-left:2px solid var(--b2)}
+.p-cor.tr{top:0;right:0;border-top:2px solid var(--b2);border-right:2px solid var(--b2)}
+.p-cor.bl{bottom:0;left:0;border-bottom:2px solid var(--b2);border-left:2px solid var(--b2)}
+.p-cor.br{bottom:0;right:0;border-bottom:2px solid var(--b2);border-right:2px solid var(--b2)}
 
-        .button-group {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+/* Circle + photo */
+.photo-circle{
+    width:320px;height:320px;border-radius:50%;overflow:hidden;
+    position:relative;z-index:2;cursor:pointer;
+    border:1.5px solid var(--b2);transition:border-color var(--t);
+}
+.photo-circle:hover{border-color:var(--txt2)}
+.hero-photo{
+    width:100%;height:100%;object-fit:cover;display:block;
+    filter:grayscale(1) contrast(1.05);
+    transition:filter .5s,transform .5s;
+}
+.photo-circle:hover .hero-photo{
+    filter:grayscale(1) contrast(1.15) brightness(1.08);
+    transform:scale(1.04);
+}
+/* Scan line (clipped by circle) */
+.p-scan{
+    position:absolute;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+    z-index:3;pointer-events:none;
+    animation:scan 5s ease-in-out infinite;
+}
+@keyframes scan{
+    0%{top:-2px;opacity:0}5%{opacity:1}
+    90%{opacity:.5}100%{top:102%;opacity:0}
+}
+/* Click hint overlay */
+.photo-hint{
+    position:absolute;inset:0;border-radius:50%;
+    background:rgba(0,0,0,0);
+    display:flex;align-items:center;justify-content:center;
+    z-index:4;pointer-events:none;
+    transition:background .3s;
+}
+.photo-circle:hover .photo-hint{background:rgba(0,0,0,.25)}
+.photo-hint span{
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    letter-spacing:2px;color:rgba(255,255,255,0);
+    transition:color .3s;text-transform:uppercase;
+}
+.photo-circle:hover .photo-hint span{color:rgba(255,255,255,.8)}
 
-        .cv-button {
-            padding: 18px 45px;
-            font-size: 18px;
-            font-weight: 600;
-            border: 2px solid #000;
-            border-radius: 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: white;
-            color: #000;
-        }
+/* ── FLOATING CODE SYMBOLS ── */
+.sym{
+    position:absolute;
+    font-family:'JetBrains Mono',monospace;font-weight:700;
+    z-index:6;pointer-events:none;line-height:1;
+    animation:fl 5s ease-in-out infinite;
+    user-select:none;text-shadow:0 0 30px currentColor;
+}
+.s1{font-size:3.6rem;color:#38bdf8;top:-36px;right:-48px;animation-delay:0s}
+.s2{font-size:3rem;color:#a78bfa;top:82px;left:-80px;animation-delay:1.5s}
+.s3{font-size:3.2rem;color:#34d399;bottom:-18px;left:-58px;animation-delay:2.8s}
+.s4{font-size:2.4rem;color:#fbbf24;bottom:28px;right:-70px;animation-delay:4.1s}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-        .cv-button:hover {
-            background: #000;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
+/* ── LIGHTBOX ── */
+.lightbox{
+    display:none;position:fixed;inset:0;z-index:1000;
+    background:rgba(0,0,0,.9);backdrop-filter:blur(20px);
+    align-items:center;justify-content:center;cursor:pointer;
+}
+.lightbox.open{display:flex;animation:lbIn .3s ease}
+@keyframes lbIn{from{opacity:0}to{opacity:1}}
+.lb-inner{
+    position:relative;cursor:default;
+    animation:lbScale .42s cubic-bezier(.16,1,.3,1);
+}
+@keyframes lbScale{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.lb-photo{
+    width:min(420px,88vw);height:min(420px,88vw);
+    border-radius:50%;object-fit:cover;display:block;
+    filter:grayscale(1) contrast(1.1);
+    border:2px solid rgba(255,255,255,.15);
+}
+.lb-close{
+    position:absolute;top:-14px;right:-14px;
+    width:34px;height:34px;background:#1a1a1a;
+    border:1px solid #333;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px;color:#fff;cursor:pointer;transition:all .2s;
+}
+.lb-close:hover{background:#333}
 
-        .cv-button:active {
-            transform: translateY(0);
-        }
+/* ── SECTION BASE ── */
+.section{
+    max-width:1280px;margin:0 auto;
+    padding:80px 52px 72px;
+    scroll-margin-top:62px;
+}
+.sec-label{
+    font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+    letter-spacing:3px;text-transform:uppercase;color:var(--txt3);
+    margin-bottom:8px;transition:color var(--t);
+}
+.sec-title{
+    font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-1.5px;
+    color:var(--txt);margin-bottom:48px;transition:color var(--t);
+}
 
-        .btn-turkish:hover {
-            background: #000;
-        }
+/* ── TECH BENTO ── */
+.bento{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+.bc{
+    background:var(--card);border:1px solid var(--b);border-radius:14px;
+    padding:20px 18px;transition:all var(--t);position:relative;overflow:hidden;
+}
+.bc::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:1px;
+    background:var(--b2);transform:scaleX(0);transform-origin:left;
+    transition:transform .4s ease;
+}
+.bc:hover::before{transform:scaleX(1)}
+.bc:hover{border-color:var(--b2)}
+.bc-devops{grid-column:span 2}
+.bc-monitor{grid-column:span 1}
+.bc-ai{grid-column:span 1}
+.bc-backend{grid-column:span 2}
+.bc-db{grid-column:span 1}
+.bc-eng{grid-column:span 1}
 
-        .btn-english:hover {
-            background: #000;
-        }
+.bt{
+    font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+    color:var(--txt3);margin-bottom:14px;padding-bottom:10px;
+    border-bottom:1px solid var(--b);
+    display:flex;align-items:center;gap:7px;transition:all var(--t);
+}
+.ti-grid{display:flex;flex-wrap:wrap;gap:7px}
+.ti{
+    display:flex;flex-direction:column;align-items:center;gap:5px;
+    padding:9px 9px 7px;border:1px solid var(--b);border-radius:9px;
+    background:var(--bg2);transition:all var(--t);cursor:default;min-width:60px;
+}
+.ti:hover{border-color:var(--b2);background:var(--hover);transform:translateY(-3px)}
+.ti img{
+    width:26px;height:26px;object-fit:contain;
+    filter:var(--icon-f);transition:filter var(--t),transform var(--t);
+}
+.ti:hover img{filter:var(--icon-fh);transform:scale(1.1)}
+.ti span{
+    font-size:9px;font-weight:600;color:var(--txt2);
+    text-align:center;transition:color var(--t);line-height:1.2;
+}
+.ti:hover span{color:var(--txt)}
+.btag{
+    display:inline-block;font-size:10.5px;font-weight:500;color:var(--txt2);
+    padding:3px 10px;border:1px solid var(--b);border-radius:5px;
+    background:var(--bg2);transition:all var(--t);cursor:default;
+}
+.btag:hover{border-color:var(--b2);color:var(--txt);background:var(--hover)}
 
-        .flag {
-            font-size: 24px;
-        }
+/* ── EXPERIENCE ── */
+.exp-list{display:flex;flex-direction:column}
+.exp-row{
+    display:grid;grid-template-columns:220px 1fr;
+    gap:40px;padding:28px 0;border-top:1px solid var(--b);
+    transition:border-color var(--t);position:relative;
+}
+.exp-row:last-child{border-bottom:1px solid var(--b)}
+.exp-row::after{
+    content:'';position:absolute;left:0;top:-1px;
+    width:0;height:1px;background:var(--b2);
+    transition:width .5s ease;
+}
+.exp-row:hover::after{width:100%}
+.exp-co{font-size:.95rem;font-weight:700;color:var(--txt);transition:color var(--t)}
+.exp-period{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    color:var(--txt3);margin-top:4px;transition:color var(--t);
+}
+.exp-right{display:flex;flex-direction:column;gap:14px}
+.exp-rb{
+    padding-left:14px;border-left:1px solid var(--b);transition:border-color var(--t);
+}
+.exp-rb:hover{border-color:var(--b2)}
+.exp-role{font-size:.88rem;font-weight:700;color:var(--txt);margin-bottom:2px;transition:color var(--t)}
+.exp-sp{
+    font-family:'JetBrains Mono',monospace;font-size:9.5px;
+    color:var(--txt3);margin-bottom:7px;transition:color var(--t);
+}
+.exp-bul{font-size:12.5px;color:var(--txt2);line-height:1.7;transition:color var(--t)}
+.exp-bul li{list-style:none;padding-left:14px;position:relative;margin-bottom:3px}
+.exp-bul li::before{content:'—';position:absolute;left:0;color:var(--txt3);transition:color var(--t)}
+.exp-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.etag{
+    font-size:10px;font-weight:500;color:var(--txt2);
+    padding:2px 9px;border:1px solid var(--b);border-radius:4px;
+    background:var(--card);transition:all var(--t);
+}
+.etag:hover{border-color:var(--b2);color:var(--txt)}
 
-        .footer {
-            margin-top: 40px;
-            font-size: 14px;
-            color: #666;
-        }
+/* ── CONTACT ── */
+#contact{
+    scroll-margin-top:62px;
+}
+.contact-wrap{
+    max-width:1280px;margin:0 auto;padding:80px 52px 60px;
+    display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.contact-big{
+    font-size:clamp(2rem,5vw,4.2rem);font-weight:900;letter-spacing:-3px;
+    color:var(--txt);line-height:1;margin-bottom:20px;transition:color var(--t);
+}
+.contact-desc{
+    font-size:.88rem;color:var(--txt2);line-height:1.7;
+    max-width:380px;transition:color var(--t);
+}
+.contact-cards{display:flex;flex-direction:column;gap:10px}
+.ccard{
+    background:var(--card);border:1px solid var(--b);border-radius:12px;
+    padding:18px 20px;display:flex;align-items:center;gap:14px;
+    transition:all var(--t);
+}
+.ccard:hover{border-color:var(--b2);background:var(--hover);transform:translateX(5px)}
+.cc-ic{
+    width:38px;height:38px;border-radius:9px;border:1px solid var(--b);
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;color:var(--txt2);flex-shrink:0;transition:all var(--t);
+}
+.ccard:hover .cc-ic{border-color:var(--b2);color:var(--txt)}
+.cc-lbl{
+    font-size:9.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--txt3);margin-bottom:2px;transition:color var(--t);
+}
+.cc-val{font-size:12.5px;font-weight:600;color:var(--txt);transition:color var(--t)}
 
-        .footer a {
-            color: #000;
-            text-decoration: none;
-            font-weight: 600;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s ease;
-        }
+/* ── FOOTER ── */
+footer{
+    border-top:1px solid var(--b);padding:20px 52px;
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:11px;color:var(--txt3);transition:all var(--t);
+}
+.foot-logo{
+    font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;
+    color:var(--txt2);transition:color var(--t);
+}
 
-        .footer a:hover {
-            border-bottom-color: #000;
-        }
+/* ── REVEAL ── */
+.r{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.r.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}
+.d3{transition-delay:.24s}.d4{transition-delay:.32s}
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 40px 30px;
-            }
+/* ── SCROLL HINT ── */
+.scroll-hint{
+    position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;
+    color:var(--txt3);transition:color var(--t);pointer-events:none;
+}
+.scroll-hint::after{
+    content:'';width:1px;height:36px;background:var(--b);display:block;
+    animation:lp 2.4s ease-in-out infinite;transition:background var(--t);
+}
+@keyframes lp{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:.9;transform:scaleY(.55)}}
 
-            h1 {
-                font-size: 32px;
-            }
-
-            .subtitle {
-                font-size: 16px;
-            }
-
-            .cv-button {
-                padding: 15px 35px;
-                font-size: 16px;
-            }
-        }
-    </style>
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+    .hero-grid{grid-template-columns:1fr;text-align:center}
+    .hero-left{align-items:center}
+    .hero-right{display:none}
+    .bento{grid-template-columns:repeat(2,1fr)}
+    .bc-devops,.bc-backend{grid-column:span 2}
+    .bc-monitor,.bc-ai,.bc-db,.bc-eng{grid-column:span 1}
+    .contact-wrap{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+    .nav{padding:0 20px}
+    .nav-mid{display:none}
+    .hero,.section,.contact-wrap{padding-left:20px;padding-right:20px}
+    footer{padding:16px 20px;flex-direction:column;gap:6px;text-align:center}
+    .bento{grid-template-columns:1fr}
+    .bc-devops,.bc-backend,.bc-monitor,.bc-ai,.bc-db,.bc-eng{grid-column:span 1}
+    .exp-row{grid-template-columns:1fr;gap:10px}
+    .hero-name{letter-spacing:-2px}
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Şahin Bölükbaşı</h1>
-        <p class="subtitle">DevOps Specialist & Software Developer</p>
-        
-        <div class="button-group">
-            <a href="viewer.html?cv=tr" class="cv-button btn-turkish">
-                <span class="flag">🇹🇷</span>
-                <span>Türkçe CV</span>
-            </a>
-            <a href="viewer.html?cv=en" class="cv-button btn-english">
-                <span class="flag">🇬🇧</span>
-                <span>English CV</span>
-            </a>
+
+<div id="progress"></div>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+    <div class="nav-logo">sb<em>.dev</em></div>
+    <div class="nav-mid">
+        <a href="#experience" class="nl">Experience</a>
+        <a href="#tech"       class="nl">Tech</a>
+        <a href="#contact"    class="nl">Contact</a>
+    </div>
+    <div class="nav-r">
+        <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+            <i class="bi bi-moon-fill" id="themeIcon"></i>
+        </button>
+    </div>
+</nav>
+
+
+<!-- ── HERO ── -->
+<section id="home" class="hero">
+    <div class="hero-grid">
+
+        <!-- Left -->
+        <div class="hero-left">
+            <div class="hero-badge r">
+                <span class="bdot"></span>
+                Available for opportunities
+            </div>
+            <h1 class="hero-name r d1">
+                <span class="ln">Şahin</span>
+                <span class="ln">Bölükbaşı</span>
+            </h1>
+            <p class="hero-sub r d2">DevOps_Specialist.init()<span class="blink">_</span></p>
+            <p class="hero-desc r d2">
+                Building the infrastructure that powers modern software.
+                CI/CD automation, Kubernetes orchestration, Azure cloud
+                architecture, and AI systems deployment at scale.
+            </p>
+            <div class="hero-btns r d3">
+                <a href="mailto:sahinbolukbasii@gmail.com" class="btn btn-p">
+                    <i class="bi bi-envelope"></i> Get in Touch
+                </a>
+                <a href="viewer.html" class="btn btn-o">
+                    <i class="bi bi-file-person"></i> View Resume
+                </a>
+            </div>
+            <div class="socials r d4">
+                <a href="https://linkedin.com/in/sahinbolukbasi" target="_blank" class="soc" aria-label="LinkedIn">
+                    <i class="bi bi-linkedin"></i>
+                </a>
+                <a href="https://github.com/sahinbolukbasi" target="_blank" class="soc" aria-label="GitHub">
+                    <i class="bi bi-github"></i>
+                </a>
+                <a href="https://sahinbolukbasi.medium.com/" target="_blank" class="soc" aria-label="Medium">
+                    <i class="bi bi-medium"></i>
+                </a>
+            </div>
         </div>
 
-        <div class="footer">
-            <p>📧 sahinbolukbas@gmail.com</p>
-            <p>🔗 
-                <a href="https://linkedin.com/in/sahinbolukbasi" target="_blank">LinkedIn</a> | 
-                <a href="https://github.com/sahinbolukbasi" target="_blank">GitHub</a></p>
-                <a href="https://sahinbolukbasi.github.io/home/" target="_blank">Portfolio</a></p>
+        <!-- Right: Photo Area -->
+        <div class="hero-right r d2">
+            <div class="photo-area">
+                <!-- Rings -->
+                <div class="p-ring p-ring-1"></div>
+                <div class="p-ring p-ring-2"></div>
+                <!-- Corner brackets -->
+                <div class="p-cor tl"></div>
+                <div class="p-cor tr"></div>
+                <div class="p-cor bl"></div>
+                <div class="p-cor br"></div>
+                <!-- Photo circle with scan -->
+                <div class="photo-circle" id="photoCircle">
+                    <img src="https://github.com/sahinbolukbasi/home/blob/main/sahinPhoto-min.png?raw=true"
+                         class="hero-photo" alt="Şahin Bölükbaşı" id="heroPhoto">
+                    <div class="p-scan"></div>
+                    <div class="photo-hint"><span>view</span></div>
+                </div>
+                <!-- Floating code symbols -->
+                <span class="sym s1">&lt;/&gt;</span>
+                <span class="sym s2">{  }</span>
+                <span class="sym s3">[  ]</span>
+                <span class="sym s4">//</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- Photo Lightbox -->
+<div class="lightbox" id="lightbox">
+    <div class="lb-inner">
+        <img src="https://github.com/sahinbolukbasi/home/blob/main/sahinPhoto-min.png?raw=true"
+             class="lb-photo" alt="Şahin Bölükbaşı">
+        <button class="lb-close" id="lbClose">×</button>
+    </div>
+</div>
+
+
+<!-- ── WORK HISTORY ── -->
+<section id="experience" class="section">
+    <p class="sec-label r">01 — Experience</p>
+    <h2 class="sec-title r">Work History</h2>
+
+    <div class="exp-list">
+
+        <!-- Pargesoft -->
+        <div class="exp-row r">
+            <div>
+                <div class="exp-co">Pargesoft</div>
+                <div class="exp-period">Feb 2024 — May 2026</div>
+            </div>
+            <div class="exp-right">
+                <div class="exp-rb">
+                    <div class="exp-role">DevOps Specialist</div>
+                    <div class="exp-sp">March 2025 — May 2026</div>
+                    <ul class="exp-bul">
+                        <li>Designed CI/CD pipelines on Azure DevOps &amp; GitHub Actions; managed org structures, branching strategies, and RBAC</li>
+                        <li>Containerized AI agents, LLM apps, and RAG systems on AKS &amp; Azure Container Apps; managed vector database operations</li>
+                        <li>Built IaC with Terraform/Bicep; configured Azure API Management, Load Balancer, and Application Gateway</li>
+                        <li>Full observability: Azure Monitor, Application Insights, Prometheus, Grafana; PowerShell/Python automation</li>
+                    </ul>
+                    <div class="exp-tags">
+                        <span class="etag">Azure DevOps</span><span class="etag">Kubernetes</span>
+                        <span class="etag">Docker</span><span class="etag">Terraform</span>
+                        <span class="etag">Grafana</span><span class="etag">LLM/RAG</span>
+                        <span class="etag">IaC</span>
+                    </div>
+                </div>
+                <div class="exp-rb">
+                    <div class="exp-role">R&amp;D Software Developer Specialist</div>
+                    <div class="exp-sp">February 2024 — March 2025</div>
+                    <ul class="exp-bul">
+                        <li>ASP.NET MVC &amp; .NET Core enterprise apps for HR, task tracking, and operations; REST APIs with Swagger</li>
+                        <li>Azure Functions, Blob Storage; Microsoft Dynamics (NAV, Business Central, CRM, AX) integrations</li>
+                    </ul>
+                    <div class="exp-tags">
+                        <span class="etag">C# / .NET</span><span class="etag">ASP.NET MVC</span>
+                        <span class="etag">Azure</span><span class="etag">MS Dynamics</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Software -->
+        <div class="exp-row r">
+            <div>
+                <div class="exp-co">Login Software</div>
+                <div class="exp-period">Jun 2023 — Feb 2024</div>
+            </div>
+            <div class="exp-right">
+                <div class="exp-rb">
+                    <div class="exp-role">Database Developer Specialist</div>
+                    <ul class="exp-bul">
+                        <li>High-performance ERP reporting modules in C++; IBM Informix database management end-to-end</li>
+                        <li>Advanced SQL for multi-layered production processes; Python automation for ERP support team</li>
+                    </ul>
+                    <div class="exp-tags">
+                        <span class="etag">IBM Informix</span><span class="etag">C++</span>
+                        <span class="etag">SQL</span><span class="etag">Python</span>
+                        <span class="etag">ERP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Truva Tekstil -->
+        <div class="exp-row r">
+            <div>
+                <div class="exp-co">Truva Tekstil</div>
+                <div class="exp-period">Nov 2022 — Apr 2023</div>
+            </div>
+            <div class="exp-right">
+                <div class="exp-rb">
+                    <div class="exp-role">Production Planning Manager</div>
+                    <ul class="exp-bul">
+                        <li>Managed end-to-end production from order to shipment; developed yarn consumption &amp; production planning algorithms that significantly improved operational efficiency</li>
+                    </ul>
+                    <div class="exp-tags">
+                        <span class="etag">Operations</span><span class="etag">Algorithms</span>
+                        <span class="etag">Planning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ── TECH STACK ── -->
+<section id="tech" class="section">
+    <p class="sec-label r">02 — Tech Stack</p>
+    <h2 class="sec-title r">Tools &amp; Technologies</h2>
+
+    <div class="bento">
+
+        <!-- DevOps & Cloud (2 cols) -->
+        <div class="bc bc-devops r">
+            <div class="bt"><i class="bi bi-cloud"></i> DevOps &amp; Cloud Infrastructure</div>
+            <div class="ti-grid">
+                <div class="ti">
+                    <img src="https://www.vectorlogo.zone/logos/microsoft_azure/microsoft_azure-icon.svg" alt="Azure">
+                    <span>Azure</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" alt="Docker">
+                    <span>Docker</span>
+                </div>
+                <div class="ti">
+                    <img src="https://www.vectorlogo.zone/logos/kubernetes/kubernetes-icon.svg" alt="Kubernetes">
+                    <span>Kubernetes</span>
+                </div>
+                <div class="ti">
+                    <img src="https://www.vectorlogo.zone/logos/terraformio/terraformio-icon.svg" alt="Terraform">
+                    <span>Terraform</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg" alt="GitHub">
+                    <span>GitHub</span>
+                </div>
+                <div class="ti">
+                    <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="Git">
+                    <span>Git</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/powershell/powershell-original.svg" alt="PowerShell">
+                    <span>PowerShell</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bash/bash-original.svg" alt="Bash">
+                    <span>Bash</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="Linux">
+                    <span>Linux</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nginx/nginx-original.svg" alt="NGINX">
+                    <span>NGINX</span>
+                </div>
+                <span class="btag">Azure DevOps</span>
+                <span class="btag">Azure Container Apps</span>
+                <span class="btag">ACR</span>
+                <span class="btag">Bicep</span>
+                <span class="btag">YAML Pipelines</span>
+                <span class="btag">Azure Key Vault</span>
+                <span class="btag">GitHub Actions</span>
+                <span class="btag">Azure API Management</span>
+                <span class="btag">Azure Load Balancer</span>
+                <span class="btag">FinOps</span>
+            </div>
+        </div>
+
+        <!-- Monitoring -->
+        <div class="bc bc-monitor r d1">
+            <div class="bt"><i class="bi bi-activity"></i> Monitoring</div>
+            <div class="ti-grid">
+                <div class="ti">
+                    <img src="https://www.vectorlogo.zone/logos/grafana/grafana-icon.svg" alt="Grafana">
+                    <span>Grafana</span>
+                </div>
+                <div class="ti">
+                    <img src="https://www.vectorlogo.zone/logos/prometheusio/prometheusio-icon.svg" alt="Prometheus">
+                    <span>Prometheus</span>
+                </div>
+                <span class="btag">Azure Monitor</span>
+                <span class="btag">App Insights</span>
+                <span class="btag">Log Analytics</span>
+                <span class="btag">Alerting</span>
+            </div>
+        </div>
+
+        <!-- AI & Agents -->
+        <div class="bc bc-ai r d2">
+            <div class="bt"><i class="bi bi-cpu"></i> AI &amp; Agents</div>
+            <div class="ti-grid">
+                <span class="btag">LLM Integration</span>
+                <span class="btag">RAG Systems</span>
+                <span class="btag">AI Agents</span>
+                <span class="btag">MCP</span>
+                <span class="btag">Vector DB</span>
+                <span class="btag">Embeddings</span>
+                <span class="btag">Azure OpenAI</span>
+            </div>
+        </div>
+
+        <!-- Backend (2 cols) -->
+        <div class="bc bc-backend r">
+            <div class="bt"><i class="bi bi-braces"></i> Backend Development</div>
+            <div class="ti-grid">
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="C#">
+                    <span>C#</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dotnetcore/dotnetcore-original.svg" alt=".NET">
+                    <span>.NET</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="Python">
+                    <span>Python</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/fastapi/fastapi-original.svg" alt="FastAPI">
+                    <span>FastAPI</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/flask/flask-original.svg" alt="Flask">
+                    <span>Flask</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="C++">
+                    <span>C++</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/swagger/swagger-original.svg" alt="Swagger">
+                    <span>Swagger</span>
+                </div>
+                <span class="btag">ASP.NET MVC</span>
+                <span class="btag">Web API</span>
+                <span class="btag">Entity Framework</span>
+                <span class="btag">REST API</span>
+                <span class="btag">SOAP</span>
+                <span class="btag">MS Dynamics</span>
+            </div>
+        </div>
+
+        <!-- Databases -->
+        <div class="bc bc-db r d1">
+            <div class="bt"><i class="bi bi-database"></i> Databases</div>
+            <div class="ti-grid">
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+                    <span>PostgreSQL</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redis/redis-original.svg" alt="Redis">
+                    <span>Redis</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="MSSQL">
+                    <span>MSSQL</span>
+                </div>
+                <div class="ti">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sqlite/sqlite-original.svg" alt="SQLite">
+                    <span>SQLite</span>
+                </div>
+                <span class="btag">Azure SQL</span>
+                <span class="btag">IBM Informix</span>
+                <span class="btag">T-SQL</span>
+            </div>
+        </div>
+
+        <!-- Engineering -->
+        <div class="bc bc-eng r d2">
+            <div class="bt"><i class="bi bi-layers"></i> Engineering</div>
+            <div class="ti-grid">
+                <span class="btag">SOLID</span>
+                <span class="btag">Design Patterns</span>
+                <span class="btag">OOP / DDD</span>
+                <span class="btag">Microservices</span>
+                <span class="btag">Agile / Scrum</span>
+                <span class="btag">Git Branching</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+    <div class="contact-wrap">
+        <div class="r">
+            <p class="sec-label">03 — Contact</p>
+            <div class="contact-big">Let's<br>Connect</div>
+            <p class="contact-desc">
+                Open to DevOps roles, freelance infrastructure work,
+                or just a good tech conversation. Reach out anytime.
+            </p>
+        </div>
+        <div class="contact-cards r d2">
+            <a href="mailto:sahinbolukbasii@gmail.com" class="ccard">
+                <div class="cc-ic"><i class="bi bi-envelope"></i></div>
+                <div><div class="cc-lbl">Email</div><div class="cc-val">sahinbolukbasii@gmail.com</div></div>
+            </a>
+            <a href="https://linkedin.com/in/sahinbolukbasi" target="_blank" class="ccard">
+                <div class="cc-ic"><i class="bi bi-linkedin"></i></div>
+                <div><div class="cc-lbl">LinkedIn</div><div class="cc-val">in/sahinbolukbasi</div></div>
+            </a>
+            <a href="https://github.com/sahinbolukbasi" target="_blank" class="ccard">
+                <div class="cc-ic"><i class="bi bi-github"></i></div>
+                <div><div class="cc-lbl">GitHub</div><div class="cc-val">sahinbolukbasi</div></div>
+            </a>
+            <a href="https://sahinbolukbasi.medium.com/" target="_blank" class="ccard">
+                <div class="cc-ic"><i class="bi bi-medium"></i></div>
+                <div><div class="cc-lbl">Medium</div><div class="cc-val">sahinbolukbasi</div></div>
+            </a>
         </div>
     </div>
+    <footer>
+        <span class="foot-logo">sb.dev</span>
+        <span>© 2026 Şahin Bölükbaşı · DevOps Engineer</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px">Istanbul · Turkey</span>
+    </footer>
+</section>
+
+
+<script>
+/* ── Progress Bar ── */
+const prog = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+    prog.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+});
+
+/* ── Theme ── */
+const html = document.documentElement;
+const themeBtn = document.getElementById('themeBtn');
+const themeIcon = document.getElementById('themeIcon');
+let dark = !window.matchMedia('(prefers-color-scheme: light)').matches;
+function applyTheme() {
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    themeIcon.className = dark ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
+}
+applyTheme();
+themeBtn.addEventListener('click', () => { dark = !dark; applyTheme(); });
+
+/* ── Scroll Reveal ── */
+const obs = new IntersectionObserver(e => {
+    e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); obs.unobserve(x.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+
+/* ── Active Nav ── */
+const secObs = new IntersectionObserver(e => {
+    e.forEach(x => {
+        if (!x.isIntersecting) return;
+        document.querySelectorAll('.nl').forEach(l => l.classList.remove('on'));
+        const m = document.querySelector(`.nl[href="#${x.target.id}"]`);
+        if (m) m.classList.add('on');
+    });
+}, { rootMargin: '-40% 0px -40% 0px' });
+document.querySelectorAll('section[id]').forEach(s => secObs.observe(s));
+
+/* ── Nav shadow on scroll ── */
+const nav = document.querySelector('.nav');
+window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 10 ? '0 1px 20px var(--shadow)' : 'none';
+});
+
+/* ── Smooth scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+});
+
+/* ── Photo Lightbox ── */
+const lb = document.getElementById('lightbox');
+const lbClose = document.getElementById('lbClose');
+const photoCircle = document.getElementById('photoCircle');
+function openLightbox() {
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+}
+photoCircle.addEventListener('click', openLightbox);
+lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+lbClose.addEventListener('click', closeLightbox);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
 </body>
 </html>
