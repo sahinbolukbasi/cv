@@ -72,6 +72,21 @@ strong{color:var(--txt);font-weight:600}
 .nl:hover{color:var(--txt);background:var(--hover)}
 .nl.on{color:var(--txt)}
 .nav-r{display:flex;align-items:center;gap:8px}
+
+/* ── LANG TOGGLE ── */
+.lang-toggle{
+    display:flex;align-items:center;
+    border:1px solid var(--b);border-radius:8px;overflow:hidden;
+    background:var(--bg2);transition:border-color var(--t),background var(--t);
+}
+.lang-btn{
+    padding:5px 13px;font-size:11px;font-weight:700;letter-spacing:.5px;
+    color:var(--txt2);background:transparent;border:none;cursor:pointer;
+    transition:all var(--t);font-family:'JetBrains Mono',monospace;
+}
+.lang-btn:first-child{border-right:1px solid var(--b);transition:border-color var(--t)}
+.lang-btn.active{background:var(--txt);color:var(--bg)}
+.lang-btn:not(.active):hover{background:var(--hover);color:var(--txt)}
 .theme-btn{
     width:36px;height:36px;border:1px solid var(--b);background:var(--bg2);
     border-radius:7px;display:flex;align-items:center;justify-content:center;
@@ -135,11 +150,11 @@ strong{color:var(--txt);font-weight:600}
 .btn-p:hover{opacity:.8}
 .btn-o{background:transparent;color:var(--txt);border-color:var(--b)}
 .btn-o:hover{background:var(--hover);border-color:var(--b2)}
-.socials{display:flex;gap:8px;margin-top:6px}
+.socials{display:flex;gap:10px;margin-top:6px}
 .soc{
-    width:38px;height:38px;border:1px solid var(--b);border-radius:8px;
+    width:48px;height:48px;border:1px solid var(--b);border-radius:10px;
     display:flex;align-items:center;justify-content:center;
-    font-size:15px;color:var(--txt2);background:var(--card);transition:all var(--t);
+    font-size:20px;color:var(--txt2);background:var(--card);transition:all var(--t);
 }
 .soc:hover{border-color:var(--b2);color:var(--txt);background:var(--hover);transform:translateY(-2px)}
 
@@ -463,11 +478,15 @@ footer{
 <nav class="nav">
     <div class="nav-logo">sb<em>.dev</em></div>
     <div class="nav-mid">
-        <a href="#experience" class="nl">Experience</a>
-        <a href="#tech"       class="nl">Tech</a>
-        <a href="#contact"    class="nl">Contact</a>
+        <a href="#experience" class="nl" data-en="Experience" data-tr="Deneyim">Experience</a>
+        <a href="#tech"       class="nl" data-en="Tech" data-tr="Teknolojiler">Tech</a>
+        <a href="#contact"    class="nl" data-en="Contact" data-tr="İletişim">Contact</a>
     </div>
     <div class="nav-r">
+        <div class="lang-toggle">
+            <button class="lang-btn active" id="btnEn" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" id="btnTr" onclick="setLang('tr')">TR</button>
+        </div>
         <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
             <i class="bi bi-moon-fill" id="themeIcon"></i>
         </button>
@@ -483,24 +502,26 @@ footer{
         <div class="hero-left">
             <div class="hero-badge r">
                 <span class="bdot"></span>
-                Available for opportunities
+                <span data-en="Available for opportunities" data-tr="Fırsatlara Açığım">Available for opportunities</span>
             </div>
             <h1 class="hero-name r d1">
                 <span class="ln">Şahin</span>
                 <span class="ln">Bölükbaşı</span>
             </h1>
             <p class="hero-sub r d2">DevOps_Specialist.init()<span class="blink">_</span></p>
-            <p class="hero-desc r d2">
+            <p class="hero-desc r d2"
+               data-en="Building the infrastructure that powers modern software. CI/CD automation, Kubernetes orchestration, Azure cloud architecture, and AI systems deployment at scale."
+               data-tr="Modern yazılımın temelini oluşturan altyapıyı inşa ediyorum. CI/CD otomasyonu, Kubernetes orkestrasyonu, Azure bulut mimarisi ve büyük ölçekte yapay zeka sistemi dağıtımı.">
                 Building the infrastructure that powers modern software.
                 CI/CD automation, Kubernetes orchestration, Azure cloud
                 architecture, and AI systems deployment at scale.
             </p>
             <div class="hero-btns r d3">
                 <a href="mailto:sahinbolukbasii@gmail.com" class="btn btn-p">
-                    <i class="bi bi-envelope"></i> Get in Touch
+                    <i class="bi bi-envelope"></i> <span data-en="Get in Touch" data-tr="İletişime Geç">Get in Touch</span>
                 </a>
                 <a href="viewer.html" class="btn btn-o">
-                    <i class="bi bi-file-person"></i> View Resume
+                    <i class="bi bi-file-person"></i> <span data-en="View Resume" data-tr="CV'yi Görüntüle">View Resume</span>
                 </a>
             </div>
             <div class="socials r d4">
@@ -543,7 +564,7 @@ footer{
         </div>
 
     </div>
-    <div class="scroll-hint">SCROLL</div>
+    <div class="scroll-hint" data-en="SCROLL" data-tr="KAYDIRIN">SCROLL</div>
 </section>
 
 <!-- Photo Lightbox -->
@@ -558,8 +579,8 @@ footer{
 
 <!-- ── WORK HISTORY ── -->
 <section id="experience" class="section">
-    <p class="sec-label r">01 — Experience</p>
-    <h2 class="sec-title r">Work History</h2>
+    <p class="sec-label r" data-en="01 — Experience" data-tr="01 — Deneyim">01 — Experience</p>
+    <h2 class="sec-title r" data-en="Work History" data-tr="İş Geçmişi">Work History</h2>
 
     <div class="exp-list">
 
@@ -574,10 +595,14 @@ footer{
                     <div class="exp-role">DevOps Specialist</div>
                     <div class="exp-sp">March 2025 — May 2026</div>
                     <ul class="exp-bul">
-                        <li>Designed CI/CD pipelines on Azure DevOps &amp; GitHub Actions; managed org structures, branching strategies, and RBAC</li>
-                        <li>Containerized AI agents, LLM apps, and RAG systems on AKS &amp; Azure Container Apps; managed vector database operations</li>
-                        <li>Built IaC with Terraform/Bicep; configured Azure API Management, Load Balancer, and Application Gateway</li>
-                        <li>Full observability: Azure Monitor, Application Insights, Prometheus, Grafana; PowerShell/Python automation</li>
+                        <li data-en="Designed CI/CD pipelines on Azure DevOps & GitHub Actions; managed org structures, branching strategies, and RBAC"
+                            data-tr="Azure DevOps ve GitHub Actions üzerinde CI/CD pipeline'ları tasarladı; org yapıları, dallanma stratejileri ve RBAC yönetimi">Designed CI/CD pipelines on Azure DevOps &amp; GitHub Actions; managed org structures, branching strategies, and RBAC</li>
+                        <li data-en="Containerized AI agents, LLM apps, and RAG systems on AKS & Azure Container Apps; managed vector database operations"
+                            data-tr="AKS ve Azure Container Apps üzerinde YZ ajanları, LLM uygulamaları ve RAG sistemlerini konteynerize etti; vektör veritabanı operasyonlarını yönetti">Containerized AI agents, LLM apps, and RAG systems on AKS &amp; Azure Container Apps; managed vector database operations</li>
+                        <li data-en="Built IaC with Terraform/Bicep; configured Azure API Management, Load Balancer, and Application Gateway"
+                            data-tr="Terraform/Bicep ile IaC kurdu; Azure API Management, Load Balancer ve Application Gateway yapılandırdı">Built IaC with Terraform/Bicep; configured Azure API Management, Load Balancer, and Application Gateway</li>
+                        <li data-en="Full observability: Azure Monitor, Application Insights, Prometheus, Grafana; PowerShell/Python automation"
+                            data-tr="Tam gözlemlenebilirlik: Azure Monitor, Application Insights, Prometheus, Grafana; PowerShell/Python otomasyonu">Full observability: Azure Monitor, Application Insights, Prometheus, Grafana; PowerShell/Python automation</li>
                     </ul>
                     <div class="exp-tags">
                         <span class="etag">Azure DevOps</span><span class="etag">Kubernetes</span>
@@ -590,8 +615,10 @@ footer{
                     <div class="exp-role">R&amp;D Software Developer Specialist</div>
                     <div class="exp-sp">February 2024 — March 2025</div>
                     <ul class="exp-bul">
-                        <li>ASP.NET MVC &amp; .NET Core enterprise apps for HR, task tracking, and operations; REST APIs with Swagger</li>
-                        <li>Azure Functions, Blob Storage; Microsoft Dynamics (NAV, Business Central, CRM, AX) integrations</li>
+                        <li data-en="ASP.NET MVC & .NET Core enterprise apps for HR, task tracking, and operations; REST APIs with Swagger"
+                            data-tr="İK, görev takibi ve operasyonlar için ASP.NET MVC ve .NET Core kurumsal uygulamaları; Swagger ile REST API'ler">ASP.NET MVC &amp; .NET Core enterprise apps for HR, task tracking, and operations; REST APIs with Swagger</li>
+                        <li data-en="Azure Functions, Blob Storage; Microsoft Dynamics (NAV, Business Central, CRM, AX) integrations"
+                            data-tr="Azure Functions, Blob Storage; Microsoft Dynamics (NAV, Business Central, CRM, AX) entegrasyonları">Azure Functions, Blob Storage; Microsoft Dynamics (NAV, Business Central, CRM, AX) integrations</li>
                     </ul>
                     <div class="exp-tags">
                         <span class="etag">C# / .NET</span><span class="etag">ASP.NET MVC</span>
@@ -611,8 +638,10 @@ footer{
                 <div class="exp-rb">
                     <div class="exp-role">Database Developer Specialist</div>
                     <ul class="exp-bul">
-                        <li>High-performance ERP reporting modules in C++; IBM Informix database management end-to-end</li>
-                        <li>Advanced SQL for multi-layered production processes; Python automation for ERP support team</li>
+                        <li data-en="High-performance ERP reporting modules in C++; IBM Informix database management end-to-end"
+                            data-tr="C++ ile yüksek performanslı ERP raporlama modülleri; IBM Informix veritabanı uçtan uca yönetimi">High-performance ERP reporting modules in C++; IBM Informix database management end-to-end</li>
+                        <li data-en="Advanced SQL for multi-layered production processes; Python automation for ERP support team"
+                            data-tr="Çok katmanlı üretim süreçleri için gelişmiş SQL; ERP destek ekibi için Python otomasyonu">Advanced SQL for multi-layered production processes; Python automation for ERP support team</li>
                     </ul>
                     <div class="exp-tags">
                         <span class="etag">IBM Informix</span><span class="etag">C++</span>
@@ -633,7 +662,8 @@ footer{
                 <div class="exp-rb">
                     <div class="exp-role">Production Planning Manager</div>
                     <ul class="exp-bul">
-                        <li>Managed end-to-end production from order to shipment; developed yarn consumption &amp; production planning algorithms that significantly improved operational efficiency</li>
+                        <li data-en="Managed end-to-end production from order to shipment; developed yarn consumption & production planning algorithms that significantly improved operational efficiency"
+                            data-tr="Siparişten sevkiyata uçtan uca üretim yönetimi; operasyonel verimliliği önemli ölçüde artıran iplik tüketim ve üretim planlama algoritmaları geliştirdi">Managed end-to-end production from order to shipment; developed yarn consumption &amp; production planning algorithms that significantly improved operational efficiency</li>
                     </ul>
                     <div class="exp-tags">
                         <span class="etag">Operations</span><span class="etag">Algorithms</span>
@@ -648,14 +678,14 @@ footer{
 
 <!-- ── TECH STACK ── -->
 <section id="tech" class="section">
-    <p class="sec-label r">02 — Tech Stack</p>
-    <h2 class="sec-title r">Tools &amp; Technologies</h2>
+    <p class="sec-label r" data-en="02 — Tech Stack" data-tr="02 — Teknolojiler">02 — Tech Stack</p>
+    <h2 class="sec-title r" data-en="Tools &amp; Technologies" data-tr="Araçlar &amp; Teknolojiler">Tools &amp; Technologies</h2>
 
     <div class="bento">
 
         <!-- DevOps & Cloud (2 cols) -->
         <div class="bc bc-devops r">
-            <div class="bt"><i class="bi bi-cloud"></i> DevOps &amp; Cloud Infrastructure</div>
+            <div class="bt"><i class="bi bi-cloud"></i> <span data-en="DevOps &amp; Cloud Infrastructure" data-tr="DevOps &amp; Bulut Altyapısı">DevOps &amp; Cloud Infrastructure</span></div>
             <div class="ti-grid">
                 <div class="ti">
                     <img src="https://www.vectorlogo.zone/logos/microsoft_azure/microsoft_azure-icon.svg" alt="Azure">
@@ -712,7 +742,7 @@ footer{
 
         <!-- Monitoring -->
         <div class="bc bc-monitor r d1">
-            <div class="bt"><i class="bi bi-activity"></i> Monitoring</div>
+            <div class="bt"><i class="bi bi-activity"></i> <span data-en="Monitoring" data-tr="İzleme &amp; Gözlemlenebilirlik">Monitoring</span></div>
             <div class="ti-grid">
                 <div class="ti">
                     <img src="https://www.vectorlogo.zone/logos/grafana/grafana-icon.svg" alt="Grafana">
@@ -731,7 +761,7 @@ footer{
 
         <!-- AI & Agents -->
         <div class="bc bc-ai r d2">
-            <div class="bt"><i class="bi bi-cpu"></i> AI &amp; Agents</div>
+            <div class="bt"><i class="bi bi-cpu"></i> <span data-en="AI &amp; Agents" data-tr="YZ &amp; Ajan Sistemleri">AI &amp; Agents</span></div>
             <div class="ti-grid">
                 <span class="btag">LLM Integration</span>
                 <span class="btag">RAG Systems</span>
@@ -745,7 +775,7 @@ footer{
 
         <!-- Backend (2 cols) -->
         <div class="bc bc-backend r">
-            <div class="bt"><i class="bi bi-braces"></i> Backend Development</div>
+            <div class="bt"><i class="bi bi-braces"></i> <span data-en="Backend Development" data-tr="Backend Geliştirme">Backend Development</span></div>
             <div class="ti-grid">
                 <div class="ti">
                     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="C#">
@@ -786,7 +816,7 @@ footer{
 
         <!-- Databases -->
         <div class="bc bc-db r d1">
-            <div class="bt"><i class="bi bi-database"></i> Databases</div>
+            <div class="bt"><i class="bi bi-database"></i> <span data-en="Databases" data-tr="Veritabanları">Databases</span></div>
             <div class="ti-grid">
                 <div class="ti">
                     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
@@ -812,7 +842,7 @@ footer{
 
         <!-- Engineering -->
         <div class="bc bc-eng r d2">
-            <div class="bt"><i class="bi bi-layers"></i> Engineering</div>
+            <div class="bt"><i class="bi bi-layers"></i> <span data-en="Engineering" data-tr="Yazılım Mühendisliği">Engineering</span></div>
             <div class="ti-grid">
                 <span class="btag">SOLID</span>
                 <span class="btag">Design Patterns</span>
@@ -831,9 +861,11 @@ footer{
 <section id="contact">
     <div class="contact-wrap">
         <div class="r">
-            <p class="sec-label">03 — Contact</p>
-            <div class="contact-big">Let's<br>Connect</div>
-            <p class="contact-desc">
+            <p class="sec-label" data-en="03 — Contact" data-tr="03 — İletişim">03 — Contact</p>
+            <div class="contact-big" data-en-html="Let's<br>Connect" data-tr-html="Haydi<br>Konuşalım">Let's<br>Connect</div>
+            <p class="contact-desc"
+               data-en="Open to DevOps roles, freelance infrastructure work, or just a good tech conversation. Reach out anytime."
+               data-tr="DevOps pozisyonlarına, serbest altyapı çalışmalarına veya sadece güzel bir teknoloji sohbetine açığım. İstediğin zaman ulaşabilirsin.">
                 Open to DevOps roles, freelance infrastructure work,
                 or just a good tech conversation. Reach out anytime.
             </p>
@@ -859,7 +891,7 @@ footer{
     </div>
     <footer>
         <span class="foot-logo">sb.dev</span>
-        <span>© 2026 Şahin Bölükbaşı · DevOps Engineer</span>
+        <span data-en="© 2026 Şahin Bölükbaşı · DevOps Engineer" data-tr="© 2026 Şahin Bölükbaşı · DevOps Mühendisi">© 2026 Şahin Bölükbaşı · DevOps Engineer</span>
         <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px">Istanbul · Turkey</span>
     </footer>
 </section>
@@ -883,6 +915,29 @@ function applyTheme() {
 }
 applyTheme();
 themeBtn.addEventListener('click', () => { dark = !dark; applyTheme(); });
+
+/* ── Language ── */
+let lang = localStorage.getItem('lang') || 'en';
+
+function applyLang(l) {
+    lang = l;
+    localStorage.setItem('lang', l);
+    html.setAttribute('lang', l);
+
+    document.getElementById('btnEn').classList.toggle('active', l === 'en');
+    document.getElementById('btnTr').classList.toggle('active', l === 'tr');
+
+    document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.dataset[l];
+    });
+    document.querySelectorAll('[data-en-html]').forEach(el => {
+        el.innerHTML = l === 'en' ? el.dataset.enHtml : el.dataset.trHtml;
+    });
+}
+
+function setLang(l) { applyLang(l); }
+
+applyLang(lang);
 
 /* ── Scroll Reveal ── */
 const obs = new IntersectionObserver(e => {
