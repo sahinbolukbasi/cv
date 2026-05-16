@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="shortcut icon" href="https://img.icons8.com/ios/50/code--v1.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -162,9 +162,16 @@ iframe{
 /* ── RESPONSIVE ── */
 @media(max-width:700px){
     .tb-mid{display:none}
-    .toolbar{padding:0 16px}
-    .stage{padding:16px 8px}
-    .cv-frame,.cv-frame iframe{width:100%;min-height:auto}
+    .toolbar{padding:0 12px;gap:8px}
+    .tb-logo{font-size:11px}
+    .tb-logo em{display:none}
+    .tb-btn span:not(.always){display:none}
+    .tb-btn{padding:6px 10px}
+    .stage{padding:12px 0 24px;align-items:flex-start;overflow-x:hidden}
+    /* CV frame keeps its A4 dimensions — scaled via JS applyZoom */
+    .cv-wrap{transform-origin:top center}
+    .cv-frame{width:210mm;overflow:hidden}
+    iframe{width:210mm;height:297mm}
 }
 </style>
 </head>
@@ -255,25 +262,76 @@ function setLang(l) {
 
 /* ── Zoom ── */
 function applyZoom() {
-    document.getElementById('cvWrap').style.transform = `scale(${zoom / 100})`;
+    const scale = zoom / 100;
+    const wrap = document.getElementById('cvWrap');
+    wrap.style.transform = `scale(${scale})`;
     document.getElementById('zoomLevel').textContent = zoom + '%';
+    /* On mobile collapse the dead space left by CSS transform */
+    if (window.innerWidth <= 700) {
+        const naturalPx = 1123; /* 297mm at 96 dpi */
+        wrap.style.height = Math.ceil(naturalPx * scale) + 'px';
+    } else {
+        wrap.style.height = 'fit-content';
+    }
 }
+
 function zoomIn()  { if (zoom < 200) { zoom += 10; applyZoom(); } }
-function zoomOut() { if (zoom > 40)  { zoom -= 10; applyZoom(); } }
+function zoomOut() { if (zoom > 20)  { zoom -= 10; applyZoom(); } }
 
-/* ── Download PDF ── */
+function initZoom() {
+    if (window.innerWidth <= 700) {
+        const available = window.innerWidth - 4; /* tiny padding */
+        const cvNaturalPx = 794; /* 210mm at 96 dpi */
+        zoom = Math.max(20, Math.floor((available / cvNaturalPx) * 100));
+    } else {
+        zoom = 100;
+    }
+    applyZoom();
+}
+
+/* ── Download PDF  (fetch → inject → html2pdf → auto-download) ── */
 async function downloadPDF() {
-    const iframe = document.getElementById('cvIframe');
-    const el = iframe.contentDocument && iframe.contentDocument.querySelector('.container');
-    if (!el) { showToast('CV henüz yüklenmedi — lütfen bekleyin'); return; }
-
     const btn = document.getElementById('dlBtn');
     const btnText = document.getElementById('dlBtnText');
     btn.disabled = true;
-    btnText.textContent = 'Generating…';
-    showToast('PDF oluşturuluyor…', 8000);
+    btnText.textContent = 'Hazırlanıyor…';
+    showToast('PDF oluşturuluyor…', 12000);
+
+    const file = lang === 'en' ? 'cv_en.html' : 'cv_tr.html';
+    let wrapper = null;
 
     try {
+        /* 1 — Fetch the CV HTML source */
+        const res = await fetch(file);
+        if (!res.ok) throw new Error('Dosya alınamadı: ' + res.status);
+        const html = await res.text();
+
+        /* 2 — Parse and extract style + container */
+        const parsed = new DOMParser().parseFromString(html, 'text/html');
+        const cvStyle  = parsed.querySelector('style');
+        const container = parsed.querySelector('.container');
+        if (!container) throw new Error('.container bulunamadı');
+
+        /* 3 — Inject off-screen into the current document so
+               html2canvas can access computed styles and loaded fonts */
+        wrapper = document.createElement('div');
+        wrapper.style.cssText =
+            'position:fixed;top:0;left:-9999px;width:210mm;z-index:-99;';
+
+        const s = document.createElement('style');
+        s.textContent = (cvStyle ? cvStyle.textContent : '') + '\n' +
+            '* { -webkit-print-color-adjust:exact!important;' +
+            '    print-color-adjust:exact!important; }';
+        wrapper.appendChild(s);
+
+        const clone = container.cloneNode(true);
+        wrapper.appendChild(clone);
+        document.body.appendChild(wrapper);
+
+        /* 4 — Wait two animation frames so the browser finishes layout */
+        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+        /* 5 — Generate PDF */
         await html2pdf()
             .set({
                 margin: 0,
@@ -284,17 +342,22 @@ async function downloadPDF() {
                     useCORS: true,
                     allowTaint: true,
                     logging: false,
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
+                    width:  clone.offsetWidth  || 794,
+                    height: clone.offsetHeight || 1123
                 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             })
-            .from(el)
+            .from(clone)
             .save();
-        showToast('İndirildi: sahinbolukbasi.pdf');
+
+        showToast('sahinbolukbasi.pdf indirildi');
+
     } catch (err) {
-        showToast('Hata oluştu — tekrar deneyin');
-        console.error(err);
+        showToast('Hata: ' + err.message);
+        console.error('PDF error:', err);
     } finally {
+        if (wrapper && wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
         btn.disabled = false;
         btnText.textContent = 'Download PDF';
     }
@@ -307,20 +370,14 @@ function printCV() {
         showToast('CV henüz yüklenmedi');
         return;
     }
-    /* inject print-color-adjust so sidebar stays dark */
-    if (!iframe.contentDocument.getElementById('__printfix__')) {
+    if (!iframe.contentDocument.getElementById('__pfix__')) {
         const s = iframe.contentDocument.createElement('style');
-        s.id = '__printfix__';
-        s.textContent = [
-            '* {',
-            '  -webkit-print-color-adjust: exact !important;',
-            '  print-color-adjust: exact !important;',
-            '  color-adjust: exact !important;',
-            '}',
-            '.sidebar {',
-            '  background: #0a0a0a !important;',
-            '}'
-        ].join('\n');
+        s.id = '__pfix__';
+        s.textContent =
+            '* { -webkit-print-color-adjust:exact!important;' +
+            '    print-color-adjust:exact!important;' +
+            '    color-adjust:exact!important; }' +
+            '.sidebar { background:#0a0a0a!important; }';
         iframe.contentDocument.head.appendChild(s);
     }
     iframe.contentWindow.focus();
@@ -328,11 +385,12 @@ function printCV() {
 }
 
 /* ── Toast ── */
-function showToast(msg, duration = 3000) {
+function showToast(msg, duration = 3500) {
     const t = document.getElementById('toast');
     t.textContent = msg;
     t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), duration);
+    clearTimeout(t._tid);
+    t._tid = setTimeout(() => t.classList.remove('show'), duration);
 }
 
 /* ── Theme ── */
@@ -347,7 +405,7 @@ function applyTheme() {
 applyTheme();
 themeBtn.addEventListener('click', () => { dark = !dark; applyTheme(); });
 
-/* ── URL param: ?lang=en or ?lang=tr ── */
+/* ── URL param ── */
 const p = new URLSearchParams(window.location.search);
 if (p.get('lang') === 'tr') lang = 'tr';
 
@@ -356,11 +414,15 @@ document.addEventListener('keydown', e => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'p') { e.preventDefault(); printCV(); }
     if ((e.ctrlKey || e.metaKey) && (e.key === '=' || e.key === '+')) { e.preventDefault(); zoomIn(); }
     if ((e.ctrlKey || e.metaKey) && e.key === '-') { e.preventDefault(); zoomOut(); }
-    if ((e.ctrlKey || e.metaKey) && e.key === '0') { e.preventDefault(); zoom = 100; applyZoom(); }
+    if ((e.ctrlKey || e.metaKey) && e.key === '0') { e.preventDefault(); zoom=100; applyZoom(); }
+});
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth <= 700) initZoom();
 });
 
 /* ── Init ── */
-window.onload = () => loadCV();
+window.onload = () => { loadCV(); initZoom(); };
 </script>
 </body>
 </html>

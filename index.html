@@ -456,17 +456,31 @@ footer{
     .bento{grid-template-columns:repeat(2,1fr)}
     .bc-devops,.bc-backend{grid-column:span 2}
     .bc-monitor,.bc-ai,.bc-db,.bc-eng{grid-column:span 1}
-    .contact-wrap{grid-template-columns:1fr}
+    .contact-wrap{grid-template-columns:1fr;gap:40px}
 }
 @media(max-width:768px){
     .nav{padding:0 20px}
     .nav-mid{display:none}
-    .hero,.section,.contact-wrap{padding-left:20px;padding-right:20px}
+    .hero{padding:calc(62px + 20px) 20px 60px}
+    .section{padding-left:20px;padding-right:20px}
+    .contact-wrap{padding-left:20px;padding-right:20px;padding-top:60px;padding-bottom:40px;gap:32px}
     footer{padding:16px 20px;flex-direction:column;gap:6px;text-align:center}
     .bento{grid-template-columns:1fr}
     .bc-devops,.bc-backend,.bc-monitor,.bc-ai,.bc-db,.bc-eng{grid-column:span 1}
     .exp-row{grid-template-columns:1fr;gap:10px}
     .hero-name{letter-spacing:-2px}
+    .hero-desc{max-width:100%}
+    .contact-desc{max-width:100%}
+    .contact-big{letter-spacing:-2px}
+}
+@media(max-width:480px){
+    .nav{padding:0 14px}
+    .hero-name{font-size:clamp(2.6rem,11vw,3.4rem);letter-spacing:-1.5px}
+    .contact-big{font-size:clamp(1.8rem,9vw,2.6rem)}
+    .lang-btn{padding:5px 10px;font-size:10px}
+    .hero-btns{flex-direction:column;align-items:stretch}
+    .btn{justify-content:center}
+    .socials{justify-content:center}
 }
 </style>
 </head>
